@@ -64,9 +64,9 @@ plot(nl_basic)
 #Angedachte Lösung:
 #Kann ich das Problem lösen indem ich den "two step approach" dem ganzen vorrausstelle:
 
-#berechnung der korrigierten Residuen:
-DE_Conv<-data$DE5Y-lm(data$DE5Y~iv$Conventional)$fitted
-DE_Unconv<-data$DE5Y-lm(data$DE5Y~iv$Unconventional)$fitted
+#berechnung der "korrigierten" DE5Y Werte:
+DE_Conv<-lm(data$DE5Y~iv$Conventional)$fitted
+DE_Unconv<-lm(data$DE5Y~iv$Unconventional)$fitted
 
 data_Conv<-data %>% select(-DE5Y) %>% 
   mutate(DE_Conv=DE_Conv)
