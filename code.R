@@ -7,6 +7,9 @@ coltypes<-cols(.default = col_double(),date = col_datetime(format = ""))
 #industryproduction, HICP_sl, Uncertainty, DE5Y
 data<-read_csv("data.csv", col_types = coltypes) %>% 
   select(-date)
+#Dadurch, dass auch eine ganze Reihe anderer Schocks auf Staatsanleihen wirken habe ich ein Identifikationsproblem. Deshalb nutze ich IV:
+#Ich besitze zwei Reihen an Geldpolitikschocks, wo ich gerne vergleichen würde ob sie in verschiedenen Zuständen
+#(Bspw. Unsicherheit) verschiedene Effekte auf Makrovariablen haben. Die beiden Schocks sind orthogonal zueinander.
 # Conventional and Unconventional monetary surprises from https://doi.org/10.1016/j.jmoneco.2019.08.016
 iv<-read_csv("iv.csv", col_types = coltypes) %>% 
   select(-date)
@@ -31,7 +34,7 @@ linear_iv_twosls_Unconv<-lp_lin_iv(endog_data=data,
                                  shock = data[,"DE5Y"],
                                  instrum = iv[,"Unconventional"],
                                  lags_endog_lin=var_lag_order,trend=0,confint = irf_conf,hor=irf_steps,use_twosls=T,use_nw=T,adjust_se=T)
-
+#state dependent iv lp 
 nl_iv_Conventional<-lp_nl_iv(endog_data=data,
                 shock = iv %>% select(Conventional),
                 trend=0,use_hp=F,confint = irf_conf,hor=irf_steps,use_nw=T,adjust_se=T,switching = data_f$ciss,
