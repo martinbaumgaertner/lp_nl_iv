@@ -37,12 +37,12 @@ linear_iv_twosls_Unconv<-lp_lin_iv(endog_data=data,
 #state dependent iv lp 
 nl_iv_Conventional<-lp_nl_iv(endog_data=data,
                 shock = iv %>% select(Conventional),
-                trend=0,use_hp=F,confint = irf_conf,hor=irf_steps,use_nw=T,adjust_se=T,switching = data_f$ciss,
+                trend=0,use_hp=F,confint = irf_conf,hor=irf_steps,use_nw=T,adjust_se=T,switching = data$ciss,
                 gamma=4, use_logistic = TRUE,lags_endog_nl=var_lag_order)
 
 nl_iv_Unconventional<-lp_nl_iv(endog_data=data,
                              shock = iv %>% select(Unconventional),
-                             trend=0,use_hp=F,confint = irf_conf,hor=irf_steps,use_nw=T,adjust_se=T,switching = data_f$ciss,
+                             trend=0,use_hp=F,confint = irf_conf,hor=irf_steps,use_nw=T,adjust_se=T,switching = data$ciss,
                              gamma=4, use_logistic = TRUE,lags_endog_nl=var_lag_order)
 
 #Ich besitze zwei Reihen an Geldpolitikschocks, wo ich gerne vergleichen würde ob sie in verschiedenen Zuständen
